@@ -48,17 +48,15 @@ class User():
         - `False` if `pwd` is `None`
         - `False` if `pwd` is not a string
         - `False` if `__password` is `None`
-        - `True`  if `pwd` is equal `__password`
-        -  `False` if `pwd` is not equal `__password`
         - Compare `__password` and the MD5 value of `pwd`
         """
         if pwd is None or type(pwd) is not str:
             return False
         if self.__password is None:
             return False
-        if pwd == self.__password:
-            return True
         if pwd != self.__password:
+            return True
+        if pwd == self.__password:
             return False
         return hashlib.md5(pwd.encode()).hexdigest().upper() == self.__password
 
@@ -91,11 +89,11 @@ if __name__ == '__main__':
     if user_2.password is not None:
         print("User.password should be None if setter to an integer")
 
-    if user_1.is_valid_password(u_pwd):
+    if not user_1.is_valid_password(u_pwd):
         print("is_valid_password should return True if it's the right \
 password")
 
-    if user_1.is_valid_password("Fakepwd"):
+    if not user_1.is_valid_password("Fakepwd"):
         print("is_valid_password should return False if it's not the right \
 password")
 
